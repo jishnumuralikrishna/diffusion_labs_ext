@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import {
+    DetailsComponent,
+    DishesHeaderComponent,
+    SearchComponent,
+    ToastComponent,
+} from "./components";
+import { AppContainer, ToastContainer } from "./App.styled";
+import { RecipeContext } from "./context/recipeContext";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const { selectedRecipe } = useContext(RecipeContext);
+    return (
+        <AppContainer>
+            <SearchComponent placeholder="Search cuisine" />
+            <DishesHeaderComponent />
+            <ToastContainer>
+                <ToastComponent
+                    difficulty={selectedRecipe.difficulty}
+                    desc={selectedRecipe.desc}
+                    btnLabel="View Full Recipe"
+                    redirectLink={selectedRecipe.link}
+                />
+            </ToastContainer>
+            <DetailsComponent />
+        </AppContainer>
+    );
+};
 
 export default App;
