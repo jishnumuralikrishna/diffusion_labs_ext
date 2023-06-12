@@ -1,33 +1,51 @@
-import React, { useContext } from "react";
+import React from "react";
 import { IconButton, SocialWrapper } from "./styled";
 import { ReactComponent as TwitterIcon } from "../../assets/icons/twitter.svg";
 import { ReactComponent as TelegramIcon } from "../../assets/icons/telegram.svg";
 import { ReactComponent as MediumIcon } from "../../assets/icons/medium.svg";
-import { ReactComponent as InternetIcon } from "../../assets/icons/internet.svg";
-import { RecipeContext } from "../../context/recipeContext";
+import ButtonComponent from "../ButtonComponent";
+import { useNavigate } from "react-router-dom";
+import { COLORS } from "../../themes/colors";
 
-const SocialComponent = () => {
-    const { selectedRecipe } = useContext(RecipeContext);
+const buttonStyles = `
+    font-family: 'Helvetica Neue', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 24px;
+`;
+
+const SocialComponent = ({ name }: { name: string }) => {
+    const navigate = useNavigate();
+
+    const handleAddRecipe = () => {
+        navigate("/addrecipe");
+    };
+
     return (
         <SocialWrapper>
             <IconButton
                 target="_blank"
-                href={`https://twitter.com/intent/tweet?text=${selectedRecipe.name}&url=${selectedRecipe.link}`}
+                href={`https://twitter.com/intent/tweet?text=${name}`}
             >
                 <TwitterIcon />
             </IconButton>
             <IconButton
                 target="_blank"
-                href={`https://telegram.me/share/url?url=${selectedRecipe.link}&text=${selectedRecipe.name}`}
+                href={`https://telegram.me/share/url?text=${name}`}
             >
                 <TelegramIcon />
             </IconButton>
             <IconButton target="_blank" href={`https://medium.com/`}>
                 <MediumIcon />
             </IconButton>
-            <IconButton target="_blank" href={`https://www.google.com/`}>
-                <InternetIcon />
-            </IconButton>
+            <ButtonComponent
+                label="+ Add recipe"
+                padding="3px 7px"
+                otherStyles={buttonStyles}
+                handleClick={handleAddRecipe}
+                bgColor={COLORS.socialBG}
+            />
         </SocialWrapper>
     );
 };

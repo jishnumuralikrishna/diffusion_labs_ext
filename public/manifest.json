@@ -11,5 +11,8 @@
     },
     "action": {
         "default_popup": "index.html"
-    }
+    },
+    "host_permissions": [
+        "https://master-7rqtwti-yj2le3kr2yhmu.uk-1.platformsh.site/yumazoo/*"
+    ]
 }

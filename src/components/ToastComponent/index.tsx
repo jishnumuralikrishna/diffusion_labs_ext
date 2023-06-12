@@ -2,9 +2,10 @@ import React from "react";
 import { ToastContent, ToastHeader, ToastWrapper } from "./styled";
 import ButtonComponent from "../ButtonComponent";
 import { ReactComponent as FoodIconSvg } from "../../assets/icons/food.svg";
+import { COLORS } from "../../themes/colors";
 
 type ToastTypes = {
-    difficulty: string;
+    difficulty: string | undefined;
     desc: string;
     bgColor?: string;
     btnLabel?: string;
@@ -23,17 +24,28 @@ const ToastComponent = ({
     redirectLink,
 }: ToastTypes) => {
     return (
-        <ToastWrapper $bgColor={bgColor}>
-            <ToastHeader $titleColor={titleColor}>
+        <ToastWrapper
+            $bgColor={difficulty === "Hard" ? COLORS.hardBg : bgColor}
+        >
+            <ToastHeader
+                $titleColor={
+                    difficulty === "Hard" ? COLORS.textColorLight : titleColor
+                }
+            >
                 <FoodIconSvg />
                 Difficulty: {difficulty}
             </ToastHeader>
             <div>
-                <ToastContent $contentColor={contentColor}>{desc}</ToastContent>
+                <ToastContent
+                    $contentColor={
+                        difficulty === "Hard"
+                            ? COLORS.textColorLight
+                            : contentColor
+                    }
+                >
+                    {desc}
+                </ToastContent>
             </div>
-            {btnLabel && (
-                <ButtonComponent label={btnLabel} redirectLink={redirectLink} />
-            )}
         </ToastWrapper>
     );
 };

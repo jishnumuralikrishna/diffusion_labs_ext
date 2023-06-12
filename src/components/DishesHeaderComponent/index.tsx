@@ -1,18 +1,22 @@
-import React, { useContext } from "react";
 import { DishName, HeaderContainer, HeaderWrapper } from "./styled";
-import { ReactComponent as SpainFlag } from "../../assets/flags/spain.svg";
-import { RecipeContext } from "../../context/recipeContext";
 import SocialComponent from "../SocialComponent";
+import { FilterSuggestionsType } from "../SearchComponent/types";
 
-const DishesHeaderComponent = () => {
-    const { selectedRecipe } = useContext(RecipeContext);
+type DetailsHeaderComponentType = {
+    data: FilterSuggestionsType;
+};
+
+const DishesHeaderComponent = ({ data }: DetailsHeaderComponentType) => {
     return (
         <HeaderContainer>
             <HeaderWrapper>
-                <SpainFlag />
-                <DishName>{selectedRecipe.name}</DishName>
+                <img
+                    src={`https://flagsapi.com/${data.origin}/flat/24.png`}
+                    alt={data.origin}
+                />
+                <DishName>{data.name}</DishName>
             </HeaderWrapper>
-            <SocialComponent />
+            <SocialComponent name={data.name} />
         </HeaderContainer>
     );
 };

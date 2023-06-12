@@ -1,28 +1,21 @@
-import React, { useContext } from "react";
-import {
-    DetailsComponent,
-    DishesHeaderComponent,
-    SearchComponent,
-    ToastComponent,
-} from "./components";
-import { AppContainer, ToastContainer } from "./App.styled";
-import { RecipeContext } from "./context/recipeContext";
+import React from "react";
+import { AppContainer } from "./App.styled";
+import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { AddRecipe, Home } from "./pages";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 const App = () => {
-    const { selectedRecipe } = useContext(RecipeContext);
+    const queryClient = new QueryClient();
     return (
         <AppContainer>
-            <SearchComponent placeholder="Search cuisine" />
-            <DishesHeaderComponent />
-            <ToastContainer>
-                <ToastComponent
-                    difficulty={selectedRecipe.difficulty}
-                    desc={selectedRecipe.desc}
-                    btnLabel="View Full Recipe"
-                    redirectLink={selectedRecipe.link}
-                />
-            </ToastContainer>
-            <DetailsComponent />
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/addrecipe" element={<AddRecipe />} />
+                    </Routes>
+                </MemoryRouter>
+            </QueryClientProvider>
         </AppContainer>
     );
 };

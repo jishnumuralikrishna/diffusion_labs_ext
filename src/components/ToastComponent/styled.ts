@@ -12,7 +12,7 @@ export const ToastWrapper = styled.div<ToastPropsType>`
     flex-direction: column;
     align-content: center;
     padding: 10px 20px;
-    gap: 16px;
+    gap: 7px;
     font-style: normal;
     text-align: left;
 

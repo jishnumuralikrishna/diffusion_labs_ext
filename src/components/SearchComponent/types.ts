@@ -1,14 +1,20 @@
 export type RecepieDetails = {
-    [key: string]: any;
+    [key: string]: string | number;
 }
 
 export type FilterSuggestionsType ={
     name: string;
-    difficulty: string;
-    desc: string;
-    link: string;
-    icon: string;
-    details: RecepieDetails;
+    origin: string;
+    description: string;
+    difficulty: number;
+    protein: string;
+    produce: string;
+    spice: string;
+    cookingOil: string;
+    volume: number;
+    serves: number;
+    authenticity: string;
+    stock: string;
 }
 
 export type SearchComponentType = {

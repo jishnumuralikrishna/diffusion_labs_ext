@@ -1,49 +1,77 @@
 import React from "react";
 import { DataText, LabelText, Wrapper, StyledText } from "./styled";
+import { DetailsLabels } from "../../utils";
 
 type DetailsDataType = {
     title: string;
-    data: [] | string | number;
-    textStyleType?: string;
+    data: string;
 };
 
-const DetailsDataComponent = ({
-    title,
+const Item = ({
     data,
     textStyleType,
-}: DetailsDataType) => {
-    const objToText = (item: string, idx: number) => {
-        let styleVariant;
-        if (textStyleType === "multi-variant-1") {
-            styleVariant = idx % 2 ? "variant_three" : "variant_one";
-        } else if (textStyleType === "multi-variant-2") {
-            styleVariant = idx % 2 ? "variant_two" : "variant_one";
+}: {
+    data: string;
+    textStyleType?: string;
+}) => {
+    return (
+        <span>
+            <StyledText $textStyleType={textStyleType}>{data}</StyledText>
+        </span>
+    );
+};
+
+const DetailsDataComponent = ({ title, data }: DetailsDataType) => {
+    const styleText = (title: string | number) => {
+        if (
+            title === DetailsLabels.authenticity ||
+            title === DetailsLabels.stock ||
+            title === DetailsLabels.cookingOil
+        ) {
+            return <Item textStyleType="variant_two" data={data} />;
+        } else if (title === DetailsLabels.produce) {
+            return data.split(",").map((item, idx) =>
+                idx % 2 ? (
+                    <>
+                        {" / "}
+                        <Item
+                            textStyleType="variant_three"
+                            data={item}
+                            key={idx}
+                        />
+                    </>
+                ) : (
+                    <Item textStyleType="variant_one" data={item} key={idx} />
+                )
+            );
+        } else if (title === DetailsLabels.spice) {
+            return data.split(",").map((item, idx) =>
+                idx % 2 ? (
+                    <>
+                        {" / "}
+                        <Item
+                            textStyleType="variant_two"
+                            data={item}
+                            key={idx}
+                        />
+                    </>
+                ) : (
+                    <Item textStyleType="variant_one" data={item} key={idx} />
+                )
+            );
+        } else {
+            return (
+                <span>
+                    <Item data={data} />
+                </span>
+            );
         }
-
-        const StyledJsxText = (
-            <span key={idx}>
-                {idx !== 0 ? " / " : ""}
-                <StyledText key={idx} $textStyleType={styleVariant}>
-                    {item}
-                </StyledText>
-            </span>
-        );
-
-        return StyledJsxText;
     };
 
     return (
         <Wrapper>
             <LabelText>{title}</LabelText>
-            <DataText>
-                {typeof data === "object" ? (
-                    data.map((item, idx) => objToText(item, idx))
-                ) : (
-                    <StyledText $textStyleType={textStyleType}>
-                        {data}
-                    </StyledText>
-                )}
-            </DataText>
+            <DataText>{styleText(title)}</DataText>
         </Wrapper>
     );
 };

@@ -1,14 +1,12 @@
 import { createContext, useState } from "react";
-import { FilterSuggestionsType } from "../components/SearchComponent/types";
-import { Recepies } from "../data/recepies";
 
 type RecipeContextType = {
-    selectedRecipe: FilterSuggestionsType;
-    setSelectedRecipe: (selected: FilterSuggestionsType) => void;
+    selectedRecipe: number | undefined;
+    setSelectedRecipe: (selected: number) => void;
 };
 
 const RecipeContextDefault: RecipeContextType = {
-    selectedRecipe: Recepies[0],
+    selectedRecipe: 21,
     setSelectedRecipe: () => {},
 };
 
@@ -16,9 +14,7 @@ export const RecipeContext =
     createContext<RecipeContextType>(RecipeContextDefault);
 
 const RecipeContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [selectedRecipe, setSelectedRecipe] = useState<FilterSuggestionsType>(
-        Recepies[0]
-    );
+    const [selectedRecipe, setSelectedRecipe] = useState<number>(21);
 
     const value = {
         selectedRecipe,
