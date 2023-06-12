@@ -1,13 +1,6 @@
 # Yumazzo Google Chrome Extension
 
-Yamazzo is a google chrome extension that can be used to search recipes for spanish dishes. Currently there are only 3 dishes available.
-```
-Dishes available: 
-
-1. Spanish Paella
-2. Marmitako
-3. Gambas al Ajillo
-```
+Yamazzo is a google chrome extension that can be used to search recipes for spanish dishes. You can search for dishes available in Database.
 
 ## Installation
 
